@@ -1,0 +1,186 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated creator profile, preferences, and subscription tier.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "email": { "type": "string", "format": "email", "maxLength": 200 },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "role": { "type": "string", "enum": ["creator", "admin"] },
+        "plan": { "type": "string", "enum": ["free", "pro", "studio"] },
+        "preferredLanguage": { "type": "string", "enum": ["en", "hi"] },
+        "theme": { "type": "string", "enum": ["light", "dark"] },
+        "charactersCount": { "type": "integer" },
+        "projectsCount": { "type": "integer" },
+        "videosCount": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "displayName", "role", "plan", "preferredLanguage", "theme", "createdAt", "updatedAt"]
+    },
+    "CartoonCharacter": {
+      "title": "CartoonCharacter",
+      "description": "Photo-to-cartoon character asset with preserved facial traits and voice persona.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "style": { "type": "string", "enum": ["3d", "pixar", "anime", "comic"] },
+        "voiceStyle": { "type": "string", "enum": ["male", "female", "child", "narrator"] },
+        "voiceName": { "type": "string", "enum": ["Puck", "Charon", "Kore", "Fenrir", "Zephyr"] },
+        "personality": { "type": "string", "maxLength": 300 },
+        "facialTraits": { "type": "string", "maxLength": 1000 },
+        "sourceImageUrl": { "type": "string", "maxLength": 500 },
+        "cartoonImageUrl": { "type": "string", "maxLength": 500 },
+        "accentColor": { "type": "string", "maxLength": 20 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "ownerId", "name", "style", "voiceStyle", "voiceName", "cartoonImageUrl", "createdAt", "updatedAt"]
+    },
+    "StoryProject": {
+      "title": "StoryProject",
+      "description": "AI cartoon story project metadata, format configuration, and audio mix settings.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "titleHindi": { "type": "string", "maxLength": 160 },
+        "moralOrSummary": { "type": "string", "maxLength": 600 },
+        "language": { "type": "string", "enum": ["hi", "en"] },
+        "genre": { "type": "string", "enum": ["comedy", "family", "adventure", "education", "mystery", "moral"] },
+        "durationMinutes": { "type": "integer" },
+        "aspectRatio": { "type": "string", "enum": ["16:9", "9:16"] },
+        "quality": { "type": "string", "enum": ["720p", "1080p"] },
+        "status": { "type": "string", "enum": ["draft", "scripted", "voiced", "animated", "exported"] },
+        "bgmMood": { "type": "string", "maxLength": 120 },
+        "bgmAudioUrl": { "type": "string", "maxLength": 500 },
+        "musicVolume": { "type": "number" },
+        "voiceVolume": { "type": "number" },
+        "sceneCount": { "type": "integer" },
+        "characterIds": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "ownerId", "title", "language", "genre", "durationMinutes", "aspectRatio", "quality", "status", "createdAt", "updatedAt"]
+    },
+    "StoryScene": {
+      "title": "StoryScene",
+      "description": "Individual animated story scene with bilingual dialogues, camera directions, and media URLs.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "projectId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "orderIndex": { "type": "integer" },
+        "act": { "type": "string", "enum": ["beginning", "middle", "climax", "ending"] },
+        "title": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "visualPrompt": { "type": "string", "maxLength": 1000 },
+        "cameraMovement": { "type": "string", "maxLength": 60 },
+        "transition": { "type": "string", "maxLength": 40 },
+        "backgroundMood": { "type": "string", "maxLength": 60 },
+        "characterName": { "type": "string", "maxLength": 80 },
+        "characterId": { "type": "string", "maxLength": 128 },
+        "speakerVoiceStyle": { "type": "string", "enum": ["male", "female", "child", "narrator"] },
+        "voiceName": { "type": "string", "enum": ["Puck", "Charon", "Kore", "Fenrir", "Zephyr"] },
+        "dialogueHindi": { "type": "string", "maxLength": 1000 },
+        "dialogueEnglish": { "type": "string", "maxLength": 1000 },
+        "durationSec": { "type": "number" },
+        "frameImageUrl": { "type": "string", "maxLength": 500 },
+        "audioUrl": { "type": "string", "maxLength": 500 },
+        "videoUrl": { "type": "string", "maxLength": 500 },
+        "animationStatus": { "type": "string", "enum": ["pending", "ready", "ai_video", "error"] },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "projectId", "ownerId", "orderIndex", "act", "title", "dialogueHindi", "dialogueEnglish", "durationSec", "animationStatus", "updatedAt"]
+    },
+    "ExportedVideo": {
+      "title": "ExportedVideo",
+      "description": "Final rendered cartoon video stored for preview and download.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "projectId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "language": { "type": "string", "enum": ["hi", "en"] },
+        "aspectRatio": { "type": "string", "enum": ["16:9", "9:16"] },
+        "quality": { "type": "string", "enum": ["720p", "1080p"] },
+        "durationSec": { "type": "number" },
+        "fileSizeBytes": { "type": "integer" },
+        "format": { "type": "string", "maxLength": 20 },
+        "downloadUrl": { "type": "string", "maxLength": 500 },
+        "thumbnailUrl": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "ownerId", "projectId", "title", "aspectRatio", "quality", "durationSec", "downloadUrl", "createdAt"]
+    },
+    "UsageLog": {
+      "title": "UsageLog",
+      "description": "AI generation request log for creator history and admin monitoring.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userEmail": { "type": "string", "maxLength": 200 },
+        "feature": { "type": "string", "enum": ["character", "story", "tts", "animation", "music", "export"] },
+        "model": { "type": "string", "maxLength": 100 },
+        "status": { "type": "string", "enum": ["success", "error"] },
+        "durationMs": { "type": "integer" },
+        "errorMessage": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "ownerId", "feature", "model", "status", "durationMs", "createdAt"]
+    },
+    "FeaturedTemplate": {
+      "title": "FeaturedTemplate",
+      "description": "Admin-managed curated story templates and content packs.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "genre": { "type": "string", "enum": ["comedy", "family", "adventure", "education", "mystery", "moral"] },
+        "language": { "type": "string", "enum": ["hi", "en"] },
+        "prompt": { "type": "string", "maxLength": 600 },
+        "active": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "genre", "language", "prompt", "active", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Creator account profiles and subscription states."
+    },
+    "/characters/{characterId}": {
+      "schema": { "$ref": "#/entities/CartoonCharacter" },
+      "description": "User-created cartoon characters."
+    },
+    "/projects/{projectId}": {
+      "schema": { "$ref": "#/entities/StoryProject" },
+      "description": "Cartoon story projects."
+    },
+    "/projects/{projectId}/scenes/{sceneId}": {
+      "schema": { "$ref": "#/entities/StoryScene" },
+      "description": "Scenes belonging to a story project."
+    },
+    "/videos/{videoId}": {
+      "schema": { "$ref": "#/entities/ExportedVideo" },
+      "description": "Exported final cartoon videos."
+    },
+    "/usageLogs/{logId}": {
+      "schema": { "$ref": "#/entities/UsageLog" },
+      "description": "AI generation history and API telemetry."
+    },
+    "/templates/{templateId}": {
+      "schema": { "$ref": "#/entities/FeaturedTemplate" },
+      "description": "Curated story templates managed by admins."
+    }
+  }
+}

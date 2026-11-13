@@ -1,0 +1,11 @@
+{
+  "name": "Ai ka Studio",
+  "description": "AI Cartoon Story Maker with Photo-to-Cartoon Characters, Hindi Voiceovers, Scene Animation, Video Editing Studio, and Admin Console.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
